@@ -16,6 +16,8 @@ body {
   grid-template-rows: repeat(8, 1fr);
 
   border: 2px solid black;
+
+  color: rgb(255, 138, 157);
 }
 
 .white {
@@ -24,4 +26,12 @@ body {
 
 .black {
   background-color: rgb(46, 46, 46);
+}
+
+.white,
+.black {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
 }

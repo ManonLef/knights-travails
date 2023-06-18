@@ -32,12 +32,13 @@ function createBoard(row = "even", amount = 1) {
   }
 }
 
-// function addKnight() {
-//   // generate a random number up to 64
-//   // target a random div with container child number
-//   // add text content symbol of knight
-//   const randomSquare = 
-
-// }
+function addKnight() {
+  const squares = document.querySelector(".container").children;
+  squares[35].textContent = "♘"
+  // random knight position
+  // const randomSquare = Math.floor(Math.random() * 64);
+  // squares[randomSquare].textContent = "♘"
+}
 
 createBoard();
+addKnight()
