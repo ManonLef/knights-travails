@@ -29,17 +29,23 @@ class Tree {
     return root;
   }
 
-  find(value, root = this.root) {
+  find(value, root = this.root, arr = []) {
     if (root === null) return null;
     const properties = Object.keys(root);
     // remove data node
-    properties.shift()
+    properties.shift();
 
     // log each prop
     properties.forEach((prop) => {
-      // this.find(value, this.root[prop])
-      if (value[0] === this.root[prop].data[0] && value[1] === this.root[prop].data[1]) console.log("found", value);
+      if (
+        value[0] === root[prop].data[0] &&
+        value[1] === root[prop].data[1]
+      ) {
+        console.log("found", value);
+        arr.push(root[prop].data)
+      }
     });
+    return arr
   }
 
   levelOrder() {
