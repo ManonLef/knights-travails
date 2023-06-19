@@ -1,8 +1,7 @@
 import Node from "./node";
 import { createBoardArray } from "./gameboard";
 
-const gameboard = createBoardArray()
-console.log(gameboard)
+const gameboard = createBoardArray();
 
 class Tree {
   constructor(array) {
@@ -13,14 +12,9 @@ class Tree {
   buildTree(array, depth = 1) {
     if (array.length === 0) return null;
     const root = new Node(array);
-    ////////////////////
-    // create children
-    ////////////////////
-
-    // array of all children to be rendered
+  
     const arr = this.convertToNodes(this.sortedArray(root));
 
-    
     if (depth < 7) {
       if (arr[0]) root.one = this.buildTree(arr[0].data, depth + 1);
       if (arr[1]) root.two = this.buildTree(arr[1].data, depth + 1);
@@ -106,16 +100,25 @@ class Tree {
   }
 
   sortedArray(root) {
-    const array = [
-      this.possibleMoves(root, +1, +2),
-      this.possibleMoves(root, +2, +1),
-      this.possibleMoves(root, +2, -1),
-      this.possibleMoves(root, +1, -2),
-      this.possibleMoves(root, -1, -2),
-      this.possibleMoves(root, -2, -1),
-      this.possibleMoves(root, -2, +1),
-      this.possibleMoves(root, -1, +2),
-    ];
+    const array = [];
+    const moveOne = this.possibleMoves(root, +1, +2);
+    const moveTwo = this.possibleMoves(root, +2, +1);
+    const moveTree = this.possibleMoves(root, +2, -1);
+    const moveFour = this.possibleMoves(root, +1, -2);
+    const moveFive = this.possibleMoves(root, -1, -2);
+    const moveSix = this.possibleMoves(root, -2, -1);
+    const moveSeven = this.possibleMoves(root, -2, +1);
+    const moveEight = this.possibleMoves(root, -1, +2);
+
+    if (compareWithGameBoard(moveOne)) array.push(moveOne)
+    if (compareWithGameBoard(moveTwo)) array.push(moveTwo)
+    if (compareWithGameBoard(moveTree)) array.push(moveTree)
+    if (compareWithGameBoard(moveFour)) array.push(moveFour)
+    if (compareWithGameBoard(moveFive)) array.push(moveFive)
+    if (compareWithGameBoard(moveSix)) array.push(moveSix)
+    if (compareWithGameBoard(moveSeven)) array.push(moveSeven)
+    if (compareWithGameBoard(moveEight)) array.push(moveEight)
+
     const sorted = mergeSort(cleanNulls(array));
     return sorted;
   }
@@ -160,26 +163,29 @@ function mergeSort(array) {
 }
 
 function compareWithGameBoard(array) {
-  const coordOne = array[0]
-  const coordTwo = array[1]
-  console.log("coords ", coordOne, coordTwo)
+  if (array === null) return false
+  const coordOne = array[0];
+  const coordTwo = array[1];
 
-  for (let i=0; i < gameboard.length; i++) {
-    const gameOne = gameboard[i][0]
-    const gameTwo = gameboard[i][1]
+  for (let i = 0; i < gameboard.length; i++) {
+    const gameOne = gameboard[i][0];
+    const gameTwo = gameboard[i][1];
 
     if (gameOne === coordOne && gameTwo === coordTwo) {
-      console.log("remove, ", coordOne, coordTwo, gameOne, gameTwo)
+      console.log("removing", array);
       gameboard.splice(i, 1);
-      return true
+      return true;
     }
   }
-  return false
+  console.log(gameboard);
+  return false;
 }
 
 const myTree = new Tree([3, 3]);
 console.log("myTree ", myTree);
 console.log("myTree root ", myTree.root);
 console.log("MyTree child one ", myTree.root.one);
-console.log(compareWithGameBoard([3,3]))
-console.log(gameboard)
+console.log(compareWithGameBoard([3, 3]));
+console.log(gameboard);
+console.table(JSON.stringify(myTree, null, 4))
+
