@@ -1,17 +1,17 @@
 export default class Node {
   constructor(data) {
     this.data = data;
-    this.one = this.possibleMoves(this.data, +2, +1);
-    this.two = this.possibleMoves(this.data, +1, +2);
-    this.three = this.possibleMoves(this.data, -1, +2);
-    this.four = this.possibleMoves(this.data, -2, +1);
-    this.five = this.possibleMoves(this.data, -2, -1);
-    this.six = this.possibleMoves(this.data, -1, -2);
-    this.seven = this.possibleMoves(this.data, +1, -2);
-    this.eight = this.possibleMoves(this.data, +2, -1);
+    this.one = this.possibleMoves(this.data, +1, +2);
+    this.two = this.possibleMoves(this.data, +2, +1);
+    this.three = this.possibleMoves(this.data, +2, -1);
+    this.four = this.possibleMoves(this.data, +1, -2);
+    this.five = this.possibleMoves(this.data, -1, -2);
+    this.six = this.possibleMoves(this.data, -2, -1);
+    this.seven = this.possibleMoves(this.data, -2, +1);
+    this.eight = this.possibleMoves(this.data, -1, +2);
   }
 
-  possibleMoves(node, row, column) {
+  possibleMoves(node, column, row) {
     const startCoord = node;
     const array = [];
     if (
@@ -23,11 +23,18 @@ export default class Node {
       return null;
 
     // else
-    array.push(startCoord[0] + row, startCoord[1] + column);
+    array.push(startCoord[0] + column, startCoord[1] + row);
     return array;
   }
 }
 
 const myNode = new Node([3, 3]);
 console.log("my Node: ", myNode);
-console.log(myNode.three);
+console.log("myNode.one", myNode.one);
+console.log("myNode.two", myNode.two);
+console.log("myNode.three", myNode.three);
+console.log("myNode.four", myNode.four);
+console.log("myNode.five", myNode.five);
+console.log("myNode.six", myNode.six);
+console.log("myNode.seven", myNode.seven);
+console.log("myNode.eight", myNode.eight);
