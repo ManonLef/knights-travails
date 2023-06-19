@@ -1,14 +1,14 @@
 function createWhiteSquare(row, square) {
   const whiteSquare = document.createElement("div");
   whiteSquare.className = "white";
-  whiteSquare.setAttribute("data-coord", [row, square]);
+  whiteSquare.setAttribute("data-coord", [square, row]);
   return whiteSquare;
 }
 
 function createBlackSquare(row, square) {
   const blackSquare = document.createElement("div");
   blackSquare.className = "black";
-  blackSquare.setAttribute("data-coord", [row, square]);
+  blackSquare.setAttribute("data-coord", [square, row]);
 
   return blackSquare;
 }
@@ -44,11 +44,27 @@ function addKnight() {
   squares[35].textContent = "♘";
 
   const attribute = squares[35].getAttribute("data-coord");
-  console.log("Knight's coordinates: " ,[parseFloat(attribute[0]), parseFloat(attribute[2])]);
+  console.log("Knight's coordinates: ", [
+    parseFloat(attribute[0]),
+    parseFloat(attribute[2]),
+  ]);
   // random knight position
   // const randomSquare = Math.floor(Math.random() * 64);
   // squares[randomSquare].textContent = "♘"
 }
 
+function createBoardArray() {
+  const squares = document.querySelector(".container").childNodes;
+  const gameArray = [];
+  squares.forEach((node) => {
+    const data = node.getAttribute("data-coord")
+    const coord = [parseFloat(data[0]), parseFloat(data[2])]
+    gameArray.push(coord)
+  })
+  console.log(gameArray[7])
+  return gameArray
+}
+
 createBoard();
 addKnight();
+createBoardArray()
