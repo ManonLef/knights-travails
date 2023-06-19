@@ -16,7 +16,7 @@ class Tree {
 
     // array of all children to be rendered
     const arr = this.convertToNodes(this.sortedArray(root));
-    console.log("arr ", arr)
+    console.log("arr ", arr);
     if (arr[0]) root.one = arr[0];
     if (arr[1]) root.two = arr[1];
     if (arr[2]) root.three = arr[2];
@@ -27,6 +27,37 @@ class Tree {
     if (arr[7]) root.eight = arr[7];
 
     return root;
+  }
+
+  find(value, root = this.root) {
+    if (root === null) return null;
+    const properties = Object.keys(root);
+    // remove data node
+    properties.shift()
+
+    // log each prop
+    properties.forEach((prop) => {
+      // this.find(value, this.root[prop])
+      if (value[0] === this.root[prop].data[0] && value[1] === this.root[prop].data[1]) console.log("found", value);
+    });
+  }
+
+  levelOrder() {
+    if (this.root === null) return [];
+
+    const queue = [this.root];
+    const levelOrderArray = [];
+
+    while (queue.length !== 0) {
+      const node = queue.pop();
+      levelOrderArray.push(node.data);
+
+      const properties = Object.keys(this.root);
+      properties.shift();
+      console.log(properties);
+      properties.forEach((prop) => levelOrderArray.push(this.root[prop].data));
+    }
+    return levelOrderArray;
   }
 
   //
@@ -122,3 +153,4 @@ const myTree = new Tree([6, 5]);
 console.log("myTree ", myTree);
 console.log("myTree root ", myTree.root);
 console.log("MyTree child one ", myTree.root.one);
+console.log("find ", myTree.find([4, 6]));
