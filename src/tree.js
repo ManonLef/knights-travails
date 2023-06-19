@@ -9,23 +9,23 @@ class Tree {
   buildTree(array, depth = 1) {
     if (array.length === 0) return null;
     const root = new Node(array);
-    console.log("yay", root);
     ////////////////////
     // create children
     ////////////////////
 
     // array of all children to be rendered
     const arr = this.convertToNodes(this.sortedArray(root));
-    console.log("arr ", arr);
-    if (arr[0]) root.one = arr[0];
-    if (arr[1]) root.two = arr[1];
-    if (arr[2]) root.three = arr[2];
-    if (arr[3]) root.four = arr[3];
-    if (arr[4]) root.five = arr[4];
-    if (arr[5]) root.six = arr[5];
-    if (arr[6]) root.seven = arr[6];
-    if (arr[7]) root.eight = arr[7];
 
+    if (depth < 7) {
+      if (arr[0]) root.one = this.buildTree(arr[0].data, depth + 1);
+      if (arr[1]) root.two = this.buildTree(arr[1].data, depth + 1);
+      if (arr[2]) root.three = this.buildTree(arr[2].data, depth + 1);
+      if (arr[3]) root.four = this.buildTree(arr[3].data, depth + 1);
+      if (arr[4]) root.five = this.buildTree(arr[4].data, depth + 1);
+      if (arr[5]) root.six = this.buildTree(arr[5].data, depth + 1);
+      if (arr[6]) root.seven = this.buildTree(arr[6].data, depth + 1);
+      if (arr[7]) root.eight = this.buildTree(arr[7].data, depth + 1);
+    }
     return root;
   }
 
@@ -37,15 +37,12 @@ class Tree {
 
     // log each prop
     properties.forEach((prop) => {
-      if (
-        value[0] === root[prop].data[0] &&
-        value[1] === root[prop].data[1]
-      ) {
+      if (value[0] === root[prop].data[0] && value[1] === root[prop].data[1]) {
         console.log("found", value);
-        arr.push(root[prop].data)
+        arr.push(root[prop].data);
       }
     });
-    return arr
+    return arr;
   }
 
   levelOrder() {
@@ -61,7 +58,9 @@ class Tree {
       const properties = Object.keys(this.root);
       properties.shift();
       console.log(properties);
-      properties.forEach((prop) => levelOrderArray.push(this.root[prop].data));
+      properties.forEach((prop) => {
+        levelOrderArray.push(this.root[prop].data);
+      });
     }
     return levelOrderArray;
   }
@@ -155,8 +154,7 @@ function mergeSort(array) {
   return merged;
 }
 
-const myTree = new Tree([6, 5]);
+const myTree = new Tree([3, 3]);
 console.log("myTree ", myTree);
 console.log("myTree root ", myTree.root);
 console.log("MyTree child one ", myTree.root.one);
-console.log("find ", myTree.find([4, 6]));
