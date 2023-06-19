@@ -3,17 +3,33 @@ import Node from "./node";
 class Tree {
   constructor(array) {
     this.root = this.buildTree(array);
-    this.moves = this.convertToNodes(this.sortedArray());
   }
 
   // Method to create all possible next possible positions from a node
-  buildTree(array) {
+  buildTree(array, depth = 1) {
     if (array.length === 0) return null;
-    let root = new Node(array);
+    const root = new Node(array);
+    console.log("yay", root);
+    ////////////////////
+    // create children
+    ////////////////////
+
+    // array of all children to be rendered
+    const arr = this.convertToNodes(this.sortedArray(root));
+    console.log("arr ", arr)
+    if (arr[0]) root.one = arr[0];
+    if (arr[1]) root.two = arr[1];
+    if (arr[2]) root.three = arr[2];
+    if (arr[3]) root.four = arr[3];
+    if (arr[4]) root.five = arr[4];
+    if (arr[5]) root.six = arr[5];
+    if (arr[6]) root.seven = arr[6];
+    if (arr[7]) root.eight = arr[7];
+
     return root;
   }
 
-  // 
+  //
   moves() {
     const movesArray = this.root.moves;
     const cleanArray = [];
@@ -26,13 +42,12 @@ class Tree {
 
   // converts child array to Nodes
   convertToNodes(array) {
-    for (let i = 0; i < array.length; i++){
-     console.log(array[i])
-     array[i] = new Node(array[i])
+    for (let i = 0; i < array.length; i++) {
+      array[i] = new Node(array[i]);
     }
-    return array
+    return array;
   }
-  
+
   possibleMoves(node, column, row) {
     const startCoord = node.data;
     const array = [];
@@ -49,16 +64,16 @@ class Tree {
     return array;
   }
 
-  sortedArray() {
+  sortedArray(root) {
     const array = [
-      this.possibleMoves(this.root, +1, +2),
-      this.possibleMoves(this.root, +2, +1),
-      this.possibleMoves(this.root, +2, -1),
-      this.possibleMoves(this.root, +1, -2),
-      this.possibleMoves(this.root, -1, -2),
-      this.possibleMoves(this.root, -2, -1),
-      this.possibleMoves(this.root, -2, +1),
-      this.possibleMoves(this.root, -1, +2)
+      this.possibleMoves(root, +1, +2),
+      this.possibleMoves(root, +2, +1),
+      this.possibleMoves(root, +2, -1),
+      this.possibleMoves(root, +1, -2),
+      this.possibleMoves(root, -1, -2),
+      this.possibleMoves(root, -2, -1),
+      this.possibleMoves(root, -2, +1),
+      this.possibleMoves(root, -1, +2),
     ];
     const sorted = mergeSort(cleanNulls(array));
     return sorted;
@@ -66,14 +81,13 @@ class Tree {
 }
 
 function cleanNulls(array) {
-  const cleaned = []
-  array.forEach(element => {
+  const cleaned = [];
+  array.forEach((element) => {
     if (element !== null) {
-  
-    cleaned.push(element)
+      cleaned.push(element);
     }
   });
-  return cleaned
+  return cleaned;
 }
 
 function mergeSort(array) {
@@ -104,9 +118,7 @@ function mergeSort(array) {
   return merged;
 }
 
-
-const myTree = new Tree([6,5]);
+const myTree = new Tree([6, 5]);
 console.log("myTree ", myTree);
-console.log("myTree root ", myTree.root)
-console.log("MyTree moves ", myTree.moves)
-
+console.log("myTree root ", myTree.root);
+console.log("MyTree child one ", myTree.root.one);
