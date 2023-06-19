@@ -3,10 +3,11 @@ function createWhiteSquare(column, row) {
   whiteSquare.className = "white";
   whiteSquare.setAttribute("data-coord", [column, row]);
   whiteSquare.textContent = ([column, row]);
+  // whiteSquare.addEventListener("click", () => console.log([column, row]))
   return whiteSquare;
 }
 
-function createBlackSquare(row, column) {
+function createBlackSquare(column, row) {
   const blackSquare = document.createElement("div");
   blackSquare.className = "black";
   blackSquare.setAttribute("data-coord", [column, row]);
