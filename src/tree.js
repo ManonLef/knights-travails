@@ -1,4 +1,8 @@
 import Node from "./node";
+import { createBoardArray } from "./gameboard";
+
+const gameboard = createBoardArray()
+console.log(gameboard)
 
 class Tree {
   constructor(array) {
@@ -16,6 +20,7 @@ class Tree {
     // array of all children to be rendered
     const arr = this.convertToNodes(this.sortedArray(root));
 
+    
     if (depth < 7) {
       if (arr[0]) root.one = this.buildTree(arr[0].data, depth + 1);
       if (arr[1]) root.two = this.buildTree(arr[1].data, depth + 1);
@@ -154,7 +159,27 @@ function mergeSort(array) {
   return merged;
 }
 
+function compareWithGameBoard(array) {
+  const coordOne = array[0]
+  const coordTwo = array[1]
+  console.log("coords ", coordOne, coordTwo)
+
+  for (let i=0; i < gameboard.length; i++) {
+    const gameOne = gameboard[i][0]
+    const gameTwo = gameboard[i][1]
+
+    if (gameOne === coordOne && gameTwo === coordTwo) {
+      console.log("remove, ", coordOne, coordTwo, gameOne, gameTwo)
+      gameboard.splice(i, 1);
+      return true
+    }
+  }
+  return false
+}
+
 const myTree = new Tree([3, 3]);
 console.log("myTree ", myTree);
 console.log("myTree root ", myTree.root);
 console.log("MyTree child one ", myTree.root.one);
+console.log(compareWithGameBoard([3,3]))
+console.log(gameboard)
