@@ -12,7 +12,7 @@ class Tree {
   buildTree(array, depth = 1) {
     if (array.length === 0) return null;
     const root = new Node(array);
-  
+
     const arr = this.convertToNodes(this.sortedArray(root));
 
     if (depth < 7) {
@@ -110,14 +110,38 @@ class Tree {
     const moveSeven = this.possibleMoves(root, -2, +1);
     const moveEight = this.possibleMoves(root, -1, +2);
 
-    if (compareWithGameBoard(moveOne)) array.push(moveOne)
-    if (compareWithGameBoard(moveTwo)) array.push(moveTwo)
-    if (compareWithGameBoard(moveTree)) array.push(moveTree)
-    if (compareWithGameBoard(moveFour)) array.push(moveFour)
-    if (compareWithGameBoard(moveFive)) array.push(moveFive)
-    if (compareWithGameBoard(moveSix)) array.push(moveSix)
-    if (compareWithGameBoard(moveSeven)) array.push(moveSeven)
-    if (compareWithGameBoard(moveEight)) array.push(moveEight)
+    if (compareWithGameBoard(moveOne)) {
+      array.push(moveOne);
+      document.querySelector(`[data-coord="${moveOne}"]`).classList.add("touched");
+    }
+    if (compareWithGameBoard(moveTwo)) {
+      array.push(moveTwo);
+      document.querySelector(`[data-coord="${moveTwo}"]`).classList.add("touched");
+    }
+    if (compareWithGameBoard(moveTree)) {
+      array.push(moveTree);
+      document.querySelector(`[data-coord="${moveTree}"]`).classList.add("touched");
+    }
+    if (compareWithGameBoard(moveFour)) {
+      array.push(moveFour);
+      document.querySelector(`[data-coord="${moveFour}"]`).classList.add("touched");
+    }
+    if (compareWithGameBoard(moveFive)) {
+      array.push(moveFive);
+      document.querySelector(`[data-coord="${moveFive}"]`).classList.add("touched");
+    }
+    if (compareWithGameBoard(moveSix)) {
+      array.push(moveSix);
+      document.querySelector(`[data-coord="${moveSix}"]`).classList.add("touched");
+    }
+    if (compareWithGameBoard(moveSeven)) {
+      array.push(moveSeven);
+      document.querySelector(`[data-coord="${moveSeven}"]`).classList.add("touched");
+    }
+    if (compareWithGameBoard(moveEight)) {
+      array.push(moveEight);
+      document.querySelector(`[data-coord="${moveEight}"]`).classList.add("touched");
+    }
 
     const sorted = mergeSort(cleanNulls(array));
     return sorted;
@@ -163,7 +187,7 @@ function mergeSort(array) {
 }
 
 function compareWithGameBoard(array) {
-  if (array === null) return false
+  if (array === null || gameboard.length === 0) return false;
   const coordOne = array[0];
   const coordTwo = array[1];
 
@@ -177,7 +201,6 @@ function compareWithGameBoard(array) {
       return true;
     }
   }
-  console.log(gameboard);
   return false;
 }
 
@@ -185,7 +208,4 @@ const myTree = new Tree([3, 3]);
 console.log("myTree ", myTree);
 console.log("myTree root ", myTree.root);
 console.log("MyTree child one ", myTree.root.one);
-console.log(compareWithGameBoard([3, 3]));
-console.log(gameboard);
-console.table(JSON.stringify(myTree, null, 4))
-
+console.table(JSON.stringify(myTree, null, 4));

@@ -13,3 +13,8 @@ I would like to build a full tree from the starting position first
 
 Some observations:
 If a knight moves from one position to another, it seems you can usually dismiss nodes left or right, depending on direction
+
+- [x] build full tree
+
+now I'd like to first find out at which level my desired value can be found
+But before I do so, first remove duplicates from the items to be turned into nodes
