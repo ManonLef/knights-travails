@@ -1,7 +1,9 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-plusplus */
 export default class GameBoard {
   constructor() {
     this.board = this.createBoard();
-    this.boardArray = this.createBoardArray();
+    this.boardArray = createBoardArray();
   }
 
   createBoard(oddOrNot = "odd", row = 7) {
@@ -13,8 +15,8 @@ export default class GameBoard {
     if (oddOrNot === "even") {
       while (column < 8) {
         container.append(
-          this.createSquare(column++, row, "white"),
-          this.createSquare(column++, row, "black")
+          createSquare(column++, row, "white"),
+          createSquare(column++, row, "black")
         );
       }
       this.createBoard("odd", row - 1);
@@ -22,29 +24,29 @@ export default class GameBoard {
     if (oddOrNot === "odd") {
       while (column < 8) {
         container.append(
-          this.createSquare(column++, row, "black"),
-          this.createSquare(column++, row, "white")
+          createSquare(column++, row, "black"),
+          createSquare(column++, row, "white")
         );
       }
       this.createBoard("even", row - 1);
     }
   }
+}
 
-  createSquare(column, row, color) {
-    const square = document.createElement("div");
-    square.className = color;
-    square.setAttribute("data-c", [column, row]);
-    square.textContent = [column, row];
-    return square;
-  }
+function createBoardArray(gameArray = []) {
+  const allSquaresArr = document.querySelector(".container").childNodes;
+  allSquaresArr.forEach((square) => {
+    const data = square.getAttribute("data-c");
+    const coordToArray = [parseFloat(data[0]), parseFloat(data[2])];
+    gameArray.push(coordToArray);
+  });
+  return gameArray;
+}
 
-  createBoardArray(gameArray = []) {
-    const allSquaresArr = document.querySelector(".container").childNodes;
-    allSquaresArr.forEach((square) => {
-      const data = square.getAttribute("data-c");
-      const coordToArray = [parseFloat(data[0]), parseFloat(data[2])];
-      gameArray.push(coordToArray);
-    });
-    return gameArray;
-  }
+function createSquare(column, row, color) {
+  const square = document.createElement("div");
+  square.className = color;
+  square.setAttribute("data-c", [column, row]);
+  square.textContent = [column, row];
+  return square;
 }
