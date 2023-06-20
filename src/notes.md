@@ -18,3 +18,8 @@ If a knight moves from one position to another, it seems you can usually dismiss
 
 now I'd like to first find out at which level my desired value can be found
 But before I do so, first remove duplicates from the items to be turned into nodes
+
+## 2023-06-20
+
+Recursive buildTree is acting a bit funny after a few steps. It starts removing visited nodes so I'll have to go trough that one for a bit and refactor the base array creators to see where the bug sneaked in. 
+

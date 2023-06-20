@@ -36,3 +36,8 @@ body {
   align-items: center;
   font-size: 20px;
 }
+
+.touched.black,
+.touched.white {
+  background-color: pink;
+}
