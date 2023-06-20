@@ -13,17 +13,18 @@ class Tree {
     if (array.length === 0) return null;
     const root = new Node(array);
 
-    const arr = this.convertToNodes(this.sortedArray(root));
-
     if (depth < 7) {
-      if (arr[0]) root.one = this.buildTree(arr[0].data, depth + 1);
-      if (arr[1]) root.two = this.buildTree(arr[1].data, depth + 1);
-      if (arr[2]) root.three = this.buildTree(arr[2].data, depth + 1);
-      if (arr[3]) root.four = this.buildTree(arr[3].data, depth + 1);
-      if (arr[4]) root.five = this.buildTree(arr[4].data, depth + 1);
-      if (arr[5]) root.six = this.buildTree(arr[5].data, depth + 1);
-      if (arr[6]) root.seven = this.buildTree(arr[6].data, depth + 1);
-      if (arr[7]) root.eight = this.buildTree(arr[7].data, depth + 1);
+      const nextArr = this.convertToNodes(this.sortedArray(root));
+      console.log("next level, ", nextArr, nextArr.length);
+
+      if (nextArr[0]) root.one = this.buildTree(nextArr[0].data, depth + 1);
+      if (nextArr[1]) root.two = this.buildTree(nextArr[1].data, depth + 1);
+      if (nextArr[2]) root.three = this.buildTree(nextArr[2].data, depth + 1);
+      if (nextArr[3]) root.four = this.buildTree(nextArr[3].data, depth + 1);
+      if (nextArr[4]) root.five = this.buildTree(nextArr[4].data, depth + 1);
+      if (nextArr[5]) root.six = this.buildTree(nextArr[5].data, depth + 1);
+      if (nextArr[6]) root.seven = this.buildTree(nextArr[6].data, depth + 1);
+      if (nextArr[7]) root.eight = this.buildTree(nextArr[7].data, depth + 1);
     }
     return root;
   }
@@ -112,35 +113,51 @@ class Tree {
 
     if (compareWithGameBoard(moveOne)) {
       array.push(moveOne);
-      document.querySelector(`[data-coord="${moveOne}"]`).classList.add("touched");
+      document
+        .querySelector(`[data-coord="${moveOne}"]`)
+        .classList.add("touched");
     }
     if (compareWithGameBoard(moveTwo)) {
       array.push(moveTwo);
-      document.querySelector(`[data-coord="${moveTwo}"]`).classList.add("touched");
+      document
+        .querySelector(`[data-coord="${moveTwo}"]`)
+        .classList.add("touched");
     }
     if (compareWithGameBoard(moveTree)) {
       array.push(moveTree);
-      document.querySelector(`[data-coord="${moveTree}"]`).classList.add("touched");
+      document
+        .querySelector(`[data-coord="${moveTree}"]`)
+        .classList.add("touched");
     }
     if (compareWithGameBoard(moveFour)) {
       array.push(moveFour);
-      document.querySelector(`[data-coord="${moveFour}"]`).classList.add("touched");
+      document
+        .querySelector(`[data-coord="${moveFour}"]`)
+        .classList.add("touched");
     }
     if (compareWithGameBoard(moveFive)) {
       array.push(moveFive);
-      document.querySelector(`[data-coord="${moveFive}"]`).classList.add("touched");
+      document
+        .querySelector(`[data-coord="${moveFive}"]`)
+        .classList.add("touched");
     }
     if (compareWithGameBoard(moveSix)) {
       array.push(moveSix);
-      document.querySelector(`[data-coord="${moveSix}"]`).classList.add("touched");
+      document
+        .querySelector(`[data-coord="${moveSix}"]`)
+        .classList.add("touched");
     }
     if (compareWithGameBoard(moveSeven)) {
       array.push(moveSeven);
-      document.querySelector(`[data-coord="${moveSeven}"]`).classList.add("touched");
+      document
+        .querySelector(`[data-coord="${moveSeven}"]`)
+        .classList.add("touched");
     }
     if (compareWithGameBoard(moveEight)) {
       array.push(moveEight);
-      document.querySelector(`[data-coord="${moveEight}"]`).classList.add("touched");
+      document
+        .querySelector(`[data-coord="${moveEight}"]`)
+        .classList.add("touched");
     }
 
     const sorted = mergeSort(cleanNulls(array));
@@ -201,11 +218,12 @@ function compareWithGameBoard(array) {
       return true;
     }
   }
-  return false;
+  return gameboard;
 }
 
-const myTree = new Tree([3, 3]);
+const myTree = new Tree([0,0]);
 console.log("myTree ", myTree);
 console.log("myTree root ", myTree.root);
 console.log("MyTree child one ", myTree.root.one);
 console.table(JSON.stringify(myTree, null, 4));
+console.log(gameboard.length)
