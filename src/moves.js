@@ -29,7 +29,7 @@ function getNextMoves(start, moves) {
       possibleMoves.push([col, row]);
     }
   }
-  return possibleMoves
+  return possibleMoves;
 }
 
 /// ////////////////////////
@@ -39,3 +39,19 @@ function getNextMoves(start, moves) {
 clog(`we start at [${start}] and want to find the shortest route to [${end}]`);
 
 logArray(getNextMoves(start, moves));
+
+function getNextLevel(array, moves) {
+  const nextLevel = [];
+  for (let i = 0; i < array.length; i++) {
+    // only push when in game array
+    const nextArray = getNextMoves(array[i], moves);
+    // make sure
+    nextLevel.push(nextArray);
+    // for (let j = 0; j < nextArray.length; j++) {
+    //   nextLevel.push(nextArray[j])
+  }
+  logArray(nextLevel);
+  console.log(nextLevel.length); // handy because these correspond with the first array
+}
+
+getNextLevel(getNextMoves(start, moves), moves);
