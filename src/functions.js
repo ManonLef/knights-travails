@@ -27,9 +27,24 @@ function arrayIncludes(arr, compare) {
   return -1;
 }
 
+// removes from chessBoard by index
+function removeFromBoard(index) {
+  if (index) chessBoard.splice(index, 1)
+}
+
+function getBoard() {
+  return chessBoard
+}
+
 /// ////////////////////////
 //       testing area     //
 /// ////////////////////////
 
 logStringGameArray(chessBoard);
 clog(`knight's coordinates are: [${knight.coord}]`);
+
+/// ////////////////////////
+//       export area      //
+/// ////////////////////////
+
+export { arrayIncludes, removeFromBoard, getBoard };
