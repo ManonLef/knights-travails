@@ -36,6 +36,10 @@ function getBoard() {
   return chessBoard
 }
 
+function getKnightPosition() {
+  return knight.coord
+}
+
 /// ////////////////////////
 //       testing area     //
 /// ////////////////////////
@@ -47,4 +51,4 @@ clog(`knight's coordinates are: [${knight.coord}]`);
 //       export area      //
 /// ////////////////////////
 
-export { arrayIncludes, removeFromBoard, getBoard };
+export { arrayIncludes, removeFromBoard, getBoard, getKnightPosition };
