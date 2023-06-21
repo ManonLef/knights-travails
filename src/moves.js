@@ -50,20 +50,6 @@ function getNextMoves(coord) {
   return possibleMoves;
 }
 
-function getNextLevel(array) {
-  const nextLevel = [];
-  const nextLevelSeparate = [];
-  for (let i = 0; i < array.length; i++) {
-    // only push when in game array
-    const nextArray = getNextMoves(array[i], moves);
-    nextLevel.push(nextArray);
-    // for (let j = 0; j < nextArray.length; j++) {
-    //   nextLevelSeparate.push(nextArray[j]);
-    // }
-  }
-  return [nextLevel, nextLevelSeparate];
-}
-
 /// ////////////////////////
 //       testing area     //
 /// ////////////////////////
@@ -76,6 +62,8 @@ function getNextLevel(array) {
 // generate nodes from children and push those nodes to the queue to convert their children
 // found? push parents to array
 const tree = new Node(start);
+
+clog(`we start at [${start}] and want to find the shortest route to [${end}]`);
 
 console.log(
   "///////////////////////// Testing a BFS /////////////////////////"
@@ -160,74 +148,5 @@ function checkMatch(data) {
     return true;
   } else return false;
 }
-
-console.log(
-  "///////////////////////// Step through functions /////////////////////////"
-);
-clog(`we start at [${start}] and want to find the shortest route to [${end}]`);
-
-// when getting next moves:
-// - get moves
-//    - check if they're visited yet (still in game array)
-//    - if not, push
-//    - remove from game array
-//    - if already visited, skip
-const levelOne = getNextMoves(start);
-
-console.log(
-  "level 1 with length ",
-  levelOne.length,
-  "leaves gameboard at ",
-  getBoard().length
-);
-logArray(levelOne);
-
-const levelTwo = getNextLevel(levelOne);
-const levelTwoNested = levelTwo[0];
-const levelTwoSanitized = levelTwo[1];
-
-console.log("level two");
-logArray(levelTwoNested);
-console.log("level two nested length is ", levelTwoNested.length);
-levelTwoNested.forEach((element) => {
-  console.log("level two elements");
-  logArray(element);
-});
-console.log(
-  "a sanitized level two version can be found here, handy for level three ;), with length",
-  levelTwoSanitized.length,
-  "leaves gameboard at ",
-  getBoard().length
-);
-logArray(levelTwoSanitized);
-
-const levelThree = getNextLevel(levelTwoSanitized);
-
-console.log(
-  "levelThree is where it gets tricky, it has length of ",
-  levelThree[1].length,
-  "if you don't count the empty children",
-  "leaves gameboard at ",
-  getBoard().length
-);
-logArray(levelThree);
-console.log("unsanitized");
-logArray(levelThree[0]);
-console.log(
-  "sanitized also removes empty elements which might make it harder to tie to parent"
-);
-logArray(levelThree[1]);
-
-console.log("the board now looks like this:", getBoard().length);
-logArray(getBoard());
-
-// next steps would be tying these up as children to the starting nodes
-// BFS needs a queue
-// I'd first queue the initial item
-// then calculate next steps from that
-// check if the array that's output has the end position
-// if not, pass each item in the queue as next step, with the passed item getting a reference to the child,
-// and the child getting a reference back to the parent
-// rinse and repeat
 
 export { getNextMoves };
