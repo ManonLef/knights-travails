@@ -8,7 +8,7 @@ import { logArray, clog } from "./debug";
 import Node from "./node";
 
 const start = getKnightPosition();
-const end = [1,7];
+const end = [0,0];
 
 const indexStart = arrayIncludes(start, getBoard());
 removeFromBoard(indexStart);
@@ -63,7 +63,7 @@ function findMoves() {
   const levelOrderArray = [];
 
   // if starting position equals end position
-  if (checkMatch(tree.data)) console.log("noob");
+  if (checkMatch(tree.data)) return tree
 
   while (queue.length !== 0) {
     // take the root from the tree
