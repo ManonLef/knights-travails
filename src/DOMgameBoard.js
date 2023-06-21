@@ -47,6 +47,5 @@ function createSquare(column, row, color) {
   const square = document.createElement("div");
   square.className = color;
   square.setAttribute("data-c", [column, row]);
-  square.textContent = [column, row];
   return square;
 }
