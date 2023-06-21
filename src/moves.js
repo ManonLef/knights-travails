@@ -8,7 +8,7 @@ import { logArray, clog } from "./debug";
 import Node from "./node";
 
 const start = getKnightPosition();
-const end = [4,1];
+const end = [7,7];
 
 const indexStart = arrayIncludes(start, getBoard());
 removeFromBoard(indexStart);
@@ -67,21 +67,56 @@ function getNextLevel(array) {
 /// ////////////////////////
 //       testing area     //
 /// ////////////////////////
+
+// so now we want to repeat this cycle for each level until the node is found that will lead us to the parent
+// I'll use a queue for this similar to my BST levelOrder function
+
+// get tree data
+// get children
+// generate nodes from children and push those nodes to the queue to convert their children
+// found? push parents to array
+const tree = new Node(start);
+
+console.log(
+  "///////////////////////// Testing a BFS /////////////////////////"
+);
+
+function findMoves() {
+  const queue = [tree];
+  const levelOrderArray = [];
+
+  // if starting position equals end position
+  if (checkMatch(tree.data)) console.log("noob");
+
+  while (queue.length !== 0) {
+    // take the root from the tree
+    const node = queue.pop();
+    // convert root children to nodes
+    const nextLevel = childToNode(node)
+    // if nextLevel contains the end node:
+    if (nextLevel) console.log("found (but not returning during testing)", nextLevel)
+    // if not yet found
+    console.log("not found yet, continuing to extract the children", node.children)
+    // for each of these children, queue and do the same 
+    node.children.forEach(child => queue.push(child))
+  }
+}
+findMoves();
+
 console.log(
   "///////////////////////// Testing a tree setup /////////////////////////"
 );
 
-const tree = new Node(start);
-console.log("tree level one ", tree.data);
-console.log(tree);
-console.log("match found?", start, end)
-console.log(childToNode());
-console.log("the kiddos of root level (level one)");
-console.log(tree.children);
-console.log("leaves gameboard at ", getBoard().length);
+// console.log("tree level one ", tree.data);
+// console.log(tree);
+// console.log("match found while converting the above children to nodes?", start, end);
+// console.log(childToNode());
+// console.log("the kiddos of root level (level one) are now all nodes");
+// console.log(tree.children);
+// console.log("leaves gameboard at length", getBoard().length);
 
 // create node of each child with a function
-function childToNode(root = tree, nodes = tree.children) {
+function childToNode(root = tree, nodes = root.children) {
   // for each of the children
   // set parent to root
   // set children
@@ -90,6 +125,7 @@ function childToNode(root = tree, nodes = tree.children) {
     nodes[i].parent = root;
     if (checkMatch(nodes[i].data)) return nodes[i];
   }
+  return false;
 }
 
 // takes in coordinates and spits them out
