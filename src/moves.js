@@ -5,14 +5,18 @@ import {
   getKnightPosition,
 } from "./functions";
 import { logArray, clog } from "./debug";
+import Node from "./node";
 
 const start = getKnightPosition();
-const end = [4, 5];
+const end = [4,1];
 
 const indexStart = arrayIncludes(start, getBoard());
-removeFromBoard(indexStart)
-console.log("the board with the starting position removed. Has length", getBoard().length)
-logArray(getBoard())
+removeFromBoard(indexStart);
+console.log(
+  "the board with the starting position removed. Has length",
+  getBoard().length
+);
+logArray(getBoard());
 
 const moves = [
   [-1, -2],
@@ -25,6 +29,7 @@ const moves = [
   [+2, -1],
 ];
 
+// gets next moves from a single node/coordinate
 function getNextMoves(coord) {
   const possibleMoves = [];
   for (let i = 0; i < moves.length; i++) {
@@ -45,12 +50,6 @@ function getNextMoves(coord) {
   return possibleMoves;
 }
 
-/// ////////////////////////
-//       testing area     //
-/// ////////////////////////
-
-clog(`we start at [${start}] and want to find the shortest route to [${end}]`);
-
 function getNextLevel(array) {
   const nextLevel = [];
   const nextLevelSeparate = [];
@@ -58,12 +57,52 @@ function getNextLevel(array) {
     // only push when in game array
     const nextArray = getNextMoves(array[i], moves);
     nextLevel.push(nextArray);
-    for (let j = 0; j < nextArray.length; j++) {
-      nextLevelSeparate.push(nextArray[j]);
-    }
+    // for (let j = 0; j < nextArray.length; j++) {
+    //   nextLevelSeparate.push(nextArray[j]);
+    // }
   }
   return [nextLevel, nextLevelSeparate];
 }
+
+/// ////////////////////////
+//       testing area     //
+/// ////////////////////////
+console.log(
+  "///////////////////////// Testing a tree setup /////////////////////////"
+);
+
+const tree = new Node(start);
+console.log("tree level one ", tree.data);
+console.log(tree);
+console.log("match found?", start, end)
+console.log(childToNode());
+console.log("the kiddos of root level (level one)");
+console.log(tree.children);
+console.log("leaves gameboard at ", getBoard().length);
+
+// create node of each child with a function
+function childToNode(root = tree, nodes = tree.children) {
+  // for each of the children
+  // set parent to root
+  // set children
+  for (let i = 0; i < nodes.length; i++) {
+    nodes[i] = new Node(nodes[i]);
+    nodes[i].parent = root;
+    if (checkMatch(nodes[i].data)) return nodes[i];
+  }
+}
+
+// takes in coordinates and spits them out
+function checkMatch(data) {
+  if (data[0] === end[0] && data[1] === end[1]) {
+    return true;
+  } else return false;
+}
+
+console.log(
+  "///////////////////////// Step through functions /////////////////////////"
+);
+clog(`we start at [${start}] and want to find the shortest route to [${end}]`);
 
 // when getting next moves:
 // - get moves
@@ -73,7 +112,12 @@ function getNextLevel(array) {
 //    - if already visited, skip
 const levelOne = getNextMoves(start);
 
-console.log("level 1 with length ", levelOne.length, "leaves gameboard at ", getBoard().length);
+console.log(
+  "level 1 with length ",
+  levelOne.length,
+  "leaves gameboard at ",
+  getBoard().length
+);
 logArray(levelOne);
 
 const levelTwo = getNextLevel(levelOne);
@@ -89,7 +133,9 @@ levelTwoNested.forEach((element) => {
 });
 console.log(
   "a sanitized level two version can be found here, handy for level three ;), with length",
-  levelTwoSanitized.length, "leaves gameboard at ", getBoard().length
+  levelTwoSanitized.length,
+  "leaves gameboard at ",
+  getBoard().length
 );
 logArray(levelTwoSanitized);
 
@@ -98,7 +144,9 @@ const levelThree = getNextLevel(levelTwoSanitized);
 console.log(
   "levelThree is where it gets tricky, it has length of ",
   levelThree[1].length,
-  "if you don't count the empty children", "leaves gameboard at ", getBoard().length
+  "if you don't count the empty children",
+  "leaves gameboard at ",
+  getBoard().length
 );
 logArray(levelThree);
 console.log("unsanitized");
@@ -119,3 +167,5 @@ logArray(getBoard());
 // if not, pass each item in the queue as next step, with the passed item getting a reference to the child,
 // and the child getting a reference back to the parent
 // rinse and repeat
+
+export { getNextMoves };
