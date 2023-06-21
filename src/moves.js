@@ -8,7 +8,7 @@ import { logArray, clog } from "./debug";
 import Node from "./node";
 
 const start = getKnightPosition();
-const end = [7, 7];
+const end = [1,7];
 
 const indexStart = arrayIncludes(start, getBoard());
 removeFromBoard(indexStart);
@@ -50,17 +50,6 @@ function getNextMoves(coord) {
   return possibleMoves;
 }
 
-/// ////////////////////////
-//       testing area     //
-/// ////////////////////////
-
-// so now we want to repeat this cycle for each level until the node is found that will lead us to the parent
-// I'll use a queue for this similar to my BST levelOrder function
-
-// get tree data
-// get children
-// generate nodes from children and push those nodes to the queue to convert their children
-// found? push parents to array
 const tree = new Node(start);
 
 clog(`we start at [${start}] and want to find the shortest route to [${end}]`);
@@ -92,7 +81,7 @@ function findMoves() {
       node.children
     );
     // for each of these children, queue and do the same
-    node.children.forEach((child) => queue.push(child));
+    node.children.forEach((child) => queue.unshift(child));
   }
 }
 
@@ -148,5 +137,7 @@ function checkMatch(data) {
     return true;
   } else return false;
 }
+
+console.log((tree))
 
 export { getNextMoves };
