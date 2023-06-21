@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import GameBoard from "./DOMgameBoard";
-import { logStringGameArray, clog } from "./debug";
+import { logArray, clog } from "./debug";
 import Knight from "./DOMknight";
 
 /// ///////////////////////
@@ -9,7 +9,7 @@ import Knight from "./DOMknight";
 
 const myBoard = new GameBoard();
 const chessBoard = [...myBoard.boardArray];
-const knight = new Knight("default");
+const knight = new Knight([0,0]);
 
 /// ////////////////////////
 // array helper functions //
@@ -44,7 +44,7 @@ function getKnightPosition() {
 //       testing area     //
 /// ////////////////////////
 
-logStringGameArray(chessBoard);
+logArray(chessBoard);
 clog(`knight's coordinates are: [${knight.coord}]`);
 
 /// ////////////////////////
