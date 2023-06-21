@@ -8,7 +8,7 @@ import { logArray, clog } from "./debug";
 import Node from "./node";
 
 const start = getKnightPosition();
-const end = [7,7];
+const end = [7, 7];
 
 const indexStart = arrayIncludes(start, getBoard());
 removeFromBoard(indexStart);
@@ -92,16 +92,42 @@ function findMoves() {
     // take the root from the tree
     const node = queue.pop();
     // convert root children to nodes
-    const nextLevel = childToNode(node)
+    const nextLevel = childToNode(node);
     // if nextLevel contains the end node:
-    if (nextLevel) console.log("found (but not returning during testing)", nextLevel)
+    if (nextLevel) {
+      console.log("found (but not returning during testing)", nextLevel);
+      return nextLevel;
+    }
     // if not yet found
-    console.log("not found yet, continuing to extract the children", node.children)
-    // for each of these children, queue and do the same 
-    node.children.forEach(child => queue.push(child))
+    console.log(
+      "not found yet, continuing to extract the children",
+      node.children
+    );
+    // for each of these children, queue and do the same
+    node.children.forEach((child) => queue.push(child));
   }
 }
-findMoves();
+
+console.log("finding our target node");
+const target = findMoves();
+console.log(logSteps(target));
+
+function logSteps(node) {
+  console.log(node);
+  const queue = [node];
+  const steps = [];
+
+  while (queue.length !== 0) {
+    const move = queue.pop();
+    steps.unshift(move.data);
+    if (move.parent) {
+      queue.push(move.parent);
+    }
+  }
+  console.log("count", steps.length - 1);
+  logArray(steps)
+  return steps;
+}
 
 console.log(
   "///////////////////////// Testing a tree setup /////////////////////////"
