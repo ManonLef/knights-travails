@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-syntax */
 import GameBoard from "./DOMgameBoard";
-import { logArray, clog } from "./debug";
 import Knight from "./DOMknight";
 
 /// ///////////////////////
@@ -9,7 +8,7 @@ import Knight from "./DOMknight";
 
 const myBoard = new GameBoard();
 const chessBoard = [...myBoard.boardArray];
-const knight = new Knight([0,0]);
+const knight = new Knight("random");
 
 /// ////////////////////////
 // array helper functions //
@@ -27,7 +26,6 @@ function arrayIncludes(arr, compare) {
   return -1;
 }
 
-// removes from chessBoard by index
 function removeFromBoard(index) {
   if (index) chessBoard.splice(index, 1)
 }
@@ -39,16 +37,5 @@ function getBoard() {
 function getKnightPosition() {
   return knight.coord
 }
-
-/// ////////////////////////
-//       testing area     //
-/// ////////////////////////
-
-logArray(chessBoard);
-clog(`knight's coordinates are: [${knight.coord}]`);
-
-/// ////////////////////////
-//       export area      //
-/// ////////////////////////
 
 export { arrayIncludes, removeFromBoard, getBoard, getKnightPosition };
