@@ -30,7 +30,21 @@ I refactored the comparison function to return the gameboard and this fixed the 
 decided to restart for my end goal is being able to do a BFS which means I don't need to render the full tree perse. 
 
 First steps:
-- [ ] check gameboard to see if array is all good and if it needs refactoring
-- [ ] hardcode a starting position and an end position being next to eachother
-- [ ] create a queue function for the BFS
-  - [ ] if current node does not equal goal: generate children and see if the goal is in there
+- [x] check gameboard to see if array is all good and if it needs refactoring
+- [x] hardcode a starting position and an end position being next to eachother
+- [x] create a queue function for the BFS
+  - [x] if current node does not equal goal: generate children and see if the goal is in there
+
+## 2023-06-22
+
+The above rewrite worked right of the bat. Only increasing level when needed (node not found yet)
+Now I'm refactoring
+
+- [x] catch invalid destination coordinates
+
+### UI ideas:
+
+- pick random, default or custom starting position.
+- pick end position
+- display moves
+- make knight move and add highlight to steps taken
