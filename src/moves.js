@@ -13,17 +13,7 @@ const end = [7, 7];
 const indexStart = arrayIncludes(start, getBoard());
 removeFromBoard(indexStart);
 
-const moves = [
-  [-1, -2],
-  [-2, -1],
-  [-1, +2],
-  [-2, +1],
-  [+1, +2],
-  [+2, +1],
-  [+1, -2],
-  [+2, -1],
-];
-
+const moves = [[-1, -2],[-2, -1],[-1, +2],[-2, +1],[+1, +2],[+2, +1],[+1, -2],[+2, -1]];
 const tree = new Node(start);
 
 clog(`we start at [${start}] and want to find the shortest route to [${end}]`);
@@ -71,13 +61,12 @@ function getChildren(coord) {
     const col = coord[0] + moves[i][0];
     const row = coord[1] + moves[i][1];
     if (col >= 0 && row >= 0 && col <= 7 && row <= 7) {
-      const visited = arrayIncludes([col, row], getBoard());
-      if (visited >= 0) {
-        // visited will be -1 (so true) if the array is already visited and removed
-        // here we check for unvisited and push it and also removing from game array
-        removeFromBoard(visited);
+      const unVisited = arrayIncludes([col, row], getBoard());
+      // only unVisited moves will be considered valid. visited will return -1 
+      // unVisited will return an index which we'll remove after pushing the new child
+      if (unVisited >= 0) {
+        removeFromBoard(unVisited);
         possibleMoves.push([col, row]);
-        // consider moving the removal into another function
       }
     }
   }
